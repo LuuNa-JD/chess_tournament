@@ -4,39 +4,7 @@
         "first_name": "Julien",
         "birth_date": "28/01/1997",
         "national_id": "AB123456",
-        "ranking": 2,
-        "gender": "M"
-    },
-    {
-        "last_name": "Sochet",
-        "first_name": "Camille",
-        "birth_date": "18/11/1997",
-        "national_id": "AB456789",
         "ranking": 1,
-        "gender": "F"
-    },
-    {
-        "last_name": "Potter",
-        "first_name": "Harry",
-        "birth_date": "24/05/1990",
-        "national_id": "AB417895",
-        "ranking": 41,
         "gender": "M"
-    },
-    {
-        "last_name": "Calisse",
-        "first_name": "Bertrand",
-        "birth_date": "06/04/1994",
-        "national_id": "AB471238",
-        "ranking": 4,
-        "gender": "M"
-    },
-    {
-        "last_name": "Marchand",
-        "first_name": "Carinne",
-        "birth_date": "05/05/1987",
-        "national_id": "AC123547",
-        "ranking": 5,
-        "gender": "F"
     }
 ]

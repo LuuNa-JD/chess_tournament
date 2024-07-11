@@ -59,5 +59,4 @@ class PlayerController:
             json.dump(
                 [player.add_to_dict() for player in self.players],
                 f,
-                indent=4
-            )
+                indent=4)

@@ -1,6 +1,7 @@
 import random
 from models.tournament import Tournament
 from models.match import Match
+import os
 
 
 class TournamentController:
@@ -54,6 +55,7 @@ class TournamentController:
         self.save_tournaments()
 
     def save_tournaments(self):
+        os.makedirs(os.path.dirname(self.data_file), exist_ok=True)
         Tournament.save_tournaments(self.tournaments, self.data_file)
 
     def load_tournaments(self):

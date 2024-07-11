@@ -1,0 +1,5 @@
+[flake8]
+exclude = venv,__pycache__,*.pyc,data,main.py
+max-line-length = 119
+format = html
+htmldir = flake-report

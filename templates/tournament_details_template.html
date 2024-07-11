@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails du tournoi {{ tournament.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .details {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        .details p {
+            margin: 10px 0;
+        }
+        .details p strong {
+            color: #4CAF50;
+        }
+        @media (max-width: 768px) {
+            .details {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Détail du tournoi {{ tournament.name }}</h1>
+    <div class="details">
+        <h2>{{ tournament.name }} à {{ tournament.location }}</h2>
+        <p><strong>Date de début:</strong> {{ tournament.start_date }}</p>
+        <p><strong>Date de fin:</strong> {{ tournament.end_date }}</p>
+        <p><strong>Description:</strong> {{ tournament.description }}</p>
+        <p><strong>Nombre de tours:</strong> {{ tournament.rounds }}</p>
+        <p><strong>Nombre de participants:</strong> {{ tournament.players | length }}</p>
+    </div>
+</body>
+</html>

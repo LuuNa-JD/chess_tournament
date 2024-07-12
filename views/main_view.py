@@ -47,7 +47,7 @@ class MainView:
         """
         if choice == "1":
             from views.player_view import PlayerView
-            PlayerView().add_player()
+            PlayerView().add_new_player()
         elif choice == "2":
             from views.tournament_view import TournamentView
             TournamentView().create_tournament()

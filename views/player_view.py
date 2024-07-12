@@ -13,7 +13,7 @@ class PlayerView:
     def __init__(self):
         self.player_controller = PlayerController()
 
-    def add_player(self):
+    def add_new_player(self):
         """
         Ajoute un joueur.
         """

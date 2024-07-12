@@ -35,6 +35,21 @@
         tr:hover {
             background-color: #f1f1f1;
         }
+        .round-details {
+          width: 80%;
+          margin: 20px auto;
+          border-collapse: collapse;
+          box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+          background-color: #fff;
+          padding: 20px;
+          border: 1px solid #ddd;
+        }
+        .round-details p {
+            margin: 10px 0;
+        }
+        .round-details p strong {
+            color: #4CAF50;
+        }
         @media (max-width: 768px) {
             table {
                 width: 100%;
@@ -45,7 +60,14 @@
 <body>
     <h1>Tours et Matchs dans le tournoi {{ tournament.name }}</h1>
     {% for round in rounds %}
-    <h2>{{ round.name }} démarre le {{ round.start_time.strftime('%d/%m/%Y %H:%M') }} et se termine le {{ round.end_time.strftime('%d/%m/%Y %H:%M') }}</h2>
+    <div class="round-details">
+        <h2>{{ round.name }} démarre le {{ round.start_time.strftime('%d/%m/%Y %H:%M') if round.start_time else 'Date inconnue' }}</h2>
+        {% if round.end_time %}
+        <p>Se termine le {{ round.end_time.strftime('%d/%m/%Y %H:%M') }}</p>
+        {% else %}
+        <p>Le tour est encore en cours.</p>
+        {% endif %}
+    </div>
     <table>
         <thead>
             <tr>

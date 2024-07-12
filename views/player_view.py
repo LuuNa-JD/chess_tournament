@@ -57,15 +57,14 @@ class PlayerView:
 
         }
 
-    @staticmethod
-    def get_player_index():
+    def get_player_index(self, players):
         """
         Demande l'index du joueur à l'utilisateur.
         """
+        self.display_players(players)
         return int(input("Entrer l'index du joueur: "))
 
-    @staticmethod
-    def display_players(players):
+    def display_players(self, players):
         """
         Affiche les joueurs dans un tableau formaté avec Rich.
         """

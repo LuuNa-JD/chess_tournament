@@ -16,7 +16,7 @@ class TournamentController:
 
     def add_player_to_tournament(self, tournament, player):
         if any(p.national_id == player.national_id for p in tournament.players):
-            print("Player " + player.first_name + " " + player.last_name + " is already in the tournament.")
+            print("Le joueur " + player.first_name + " " + player.last_name + " est déjà dans le tournoi.")
         else:
             tournament.add_player(player)
             self.save_tournaments()
@@ -25,21 +25,21 @@ class TournamentController:
         tournament.start_new_round()
         self.save_tournaments()
 
-    def generate_pairs(self, tournament, round_instance):
-        if tournament.current_round == 0:
-            random.shuffle(tournament.players)
-        else:
-            tournament.players.sort(key=lambda p: p.points, reverse=True)
+    # def generate_pairs(self, tournament, round_instance):
+    #     if tournament.current_round == 0:
+    #         random.shuffle(tournament.players)
+    #     else:
+    #         tournament.players.sort(key=lambda p: p.points, reverse=True)
 
-        paired_players = set()
-        for i in range(0, len(tournament.players), 2):
-            if i + 1 < len(tournament.players):
-                player1 = tournament.players[i]
-                player2 = tournament.players[i + 1]
-                if (player1, player2) not in paired_players and (player2, player1) not in paired_players:
-                    match = Match(player1, player2)
-                    round_instance.add_match(match)
-                    paired_players.add((player1, player2))
+    #     paired_players = set()
+    #     for i in range(0, len(tournament.players), 2):
+    #         if i + 1 < len(tournament.players):
+    #             player1 = tournament.players[i]
+    #             player2 = tournament.players[i + 1]
+    #             if (player1, player2) not in paired_players and (player2, player1) not in paired_players:
+    #                 match = Match(player1, player2)
+    #                 round_instance.add_match(match)
+    #                 paired_players.add((player1, player2))
 
     def end_round(self, tournament, round_index):
         round_instance = tournament.round_list[round_index]

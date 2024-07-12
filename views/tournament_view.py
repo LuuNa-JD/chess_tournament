@@ -43,9 +43,10 @@ class TournamentView:
 
         while True:
             player_view = PlayerView()
-            player_view.view_players()
-            player_index = player_view.get_player_index()
-            player = player_view.player_controller.players[player_index]
+            all_players = player_view.player_controller.get_all_players()
+            sorted_players = sorted(all_players, key=lambda x: (x.last_name, x.first_name))
+            player_index = player_view.get_player_index(sorted_players)
+            player = sorted_players[player_index]
 
             if tournament:
                 self.tournament_controller.add_player_to_tournament(tournament, player)
@@ -68,10 +69,10 @@ class TournamentView:
 
         if tournament:
             self.tournament_controller.start_round(tournament)
-            console.print("[green]Round started successfully.[/green]")
+            console.print("[green]Tour démarré avec succès.[/green]")
             self.view_matches(tournament.round_list[-1])
         else:
-            console.print("[red]Tournament not found.[/red]")
+            console.print("[red]Tournoi introuvable.[/red]")
 
     def end_tournament_round(self, tournament=None):
         """
@@ -89,13 +90,13 @@ class TournamentView:
                 round_instance = tournament.round_list[round_index]
                 if round_instance.end_time is None:
                     self.tournament_controller.end_round(tournament, round_index)
-                    console.print(f"[green]{round_instance.name} ended successfully.[/green]")
+                    console.print(f"[green]{round_instance.name} s'est terminé avec succès.[/green]")
                 else:
-                    console.print("[yellow]This round has already ended.[/yellow]")
+                    console.print("[yellow]Ce tour est déjà terminé.[/yellow]")
             else:
-                console.print("[red]Invalid round index.[/red]")
+                console.print("[red]Index de tour invalide.[/red]")
         else:
-            console.print("[red]Tournament not found.[/red]")
+            console.print("[red]Tournoi introuvable.[/red]")
 
     def update_match_result(self, tournament=None):
         if tournament is None:

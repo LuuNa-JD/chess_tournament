@@ -81,7 +81,7 @@ Les rapports sont enregistrés sous forme de fichiers HTML dans le répertoire r
 Le projet est configuré pour utiliser Flake8 pour vérifier la conformité du code avec les normes PEP 8. Pour exécuter Flake8, utilisez la commande suivante :
 
 ```bash
-flake8 --format=html --htmldir=flake_report
+flake8
 ```
 
 Un rapport HTML sera généré dans le répertoire flake_report.

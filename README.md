@@ -86,6 +86,10 @@ flake8
 
 Un rapport HTML sera généré dans le répertoire flake_report.
 
+Voici le dernier rapport généré :
+
+![Rapport HTML de Flake8](screenshots/flake8_report.png)
+
 ## Licence
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus d'informations.

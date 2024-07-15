@@ -17,16 +17,20 @@ class PlayerView:
         """
         Ajoute un joueur.
         """
-        player_info = self.get_player_info()
-        self.player_controller.add_player(
-            player_info["last_name"],
-            player_info["first_name"],
-            player_info["birth_date"],
-            player_info["national_id"],
-            player_info["ranking"],
-            player_info["gender"]
-        )
-        console.print("[green]Le joueur a été ajouté avec succes ![/green]")
+        while True:
+            player_info = self.get_player_info()
+            if player_info:
+                self.player_controller.add_player(
+                    player_info["last_name"],
+                    player_info["first_name"],
+                    player_info["birth_date"],
+                    player_info["national_id"],
+                    player_info["ranking"],
+                    player_info["gender"]
+                )
+                break
+            else:
+                console.print("[red]Veuillez réessayer de saisir les informations du joueur.[/red]")
 
     def view_players(self):
         """
@@ -41,21 +45,28 @@ class PlayerView:
         """
         Demande les informations du joueur et les retourne sous forme de dictionnaire.
         """
-        last_name = input("Entrez le nom de famille: ")
-        first_name = input("Entrez le prénom: ")
-        birth_date = input("Entrez la date de naissance (DD/MM/YYYY): ")
-        national_id = input("Entrez l'identifiant national: ")
-        ranking = int(input("Entrez le classement: "))
-        gender = input("Entrez le genre (M/F): ")
-        return {
-            "last_name": last_name,
-            "first_name": first_name,
-            "birth_date": birth_date,
-            "national_id": national_id,
-            "ranking": ranking,
-            "gender": gender
+        try:
+            last_name = input("Entrez le nom de famille: ")
+            first_name = input("Entrez le prénom: ")
+            birth_date = input("Entrez la date de naissance (DD/MM/YYYY): ")
+            national_id = input("Entrez l'identifiant national: ")
+            ranking = int(input("Entrez le classement: "))
+            gender = input("Entrez le genre (M/F): ")
+            return {
+                "last_name": last_name,
+                "first_name": first_name,
+                "birth_date": birth_date,
+                "national_id": national_id,
+                "ranking": ranking,
+                "gender": gender
 
-        }
+            }
+        except ValueError as e:
+            console.print(f"[red]Erreur de saisie : {e}. Merci de vérifier vos entrées.[/red]")
+            return None
+        except Exception as e:
+            console.print(f"[red]Erreur : {e}.[/red]")
+            return None
 
     def get_player_index(self, players):
         """

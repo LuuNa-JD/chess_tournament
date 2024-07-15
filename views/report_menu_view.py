@@ -14,6 +14,9 @@ class ReportMenuView:
         self.report_view = ReportView()
 
     def run(self):
+        """
+        Démarre le menu des rapports.
+        """
         while True:
             self.display_menu()
             choice = input("Selectionnez une option: ")
@@ -39,11 +42,14 @@ class ReportMenuView:
                 self.report_view.generate_tournament_rounds_report(tournament_index)
                 console.print("[green]Rapport sur les tours du tournoi généré avec succès ![/green]")
             elif choice == "6":
-                break
+                break  # Retourne au menu principal.
             else:
                 console.print("[red]Choix invalide, veuillez selectionner un choix valide[/red]")
 
     def display_menu(self):
+        """
+        Affiche le menu des rapports.
+        """
         table = Table(title="Menu des rapports")
         table.add_column("Option", style="cyan", no_wrap=True)
         table.add_column("Rapports", style="magenta")

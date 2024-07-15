@@ -2,7 +2,20 @@ import random
 
 
 class Match:
+    """
+    Représente un match entre deux joueurs.
+    """
+
     def __init__(self, player1, player2, score1=0.0, score2=0.0):
+        """
+        Initialise un nouveau match.
+
+        Arguments:
+            player1 (Player): Le premier joueur.
+            player2 (Player): Le deuxième joueur.
+            score1 (float): Le score du premier joueur (par défaut 0.0).
+            score2 (float): Le score du deuxième joueur (par défaut 0.0).
+        """
         self.player1 = player1
         self.player2 = player2
         self.score1 = score1
@@ -10,6 +23,9 @@ class Match:
         self.player1_color, self.player2_color = self.assign_colors()
 
     def set_result(self, winner=None):
+        """
+        Définit le résultat du match.
+        """
         if winner is None:
             self.score1 = 0.5
             self.score2 = 0.5
@@ -21,6 +37,9 @@ class Match:
             self.score2 = 1.0
 
     def add_to_dict(self):
+        """
+        Convertit les détails du match en dictionnaire.
+        """
         return {
             'player1': self.player1.add_to_dict(),
             'score1': self.score1,
@@ -40,6 +59,9 @@ class Match:
 
     @classmethod
     def from_dict(cls, data, players):
+        """
+        Crée une instance d'un match à partir d'un dictionnaire de données.
+        """
         player1 = next(
             (player for player in players if
              player.national_id == data['player1']['national_id'])

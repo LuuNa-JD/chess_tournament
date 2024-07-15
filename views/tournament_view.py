@@ -19,18 +19,26 @@ class TournamentView:
         """
         Crée un tournoi.
         """
-        tournament_info = self.get_tournament_info()
-        start_date = datetime.strptime(tournament_info["start_date"], "%d/%m/%Y")
-        end_date = datetime.strptime(tournament_info["end_date"], "%d/%m/%Y")
-        self.tournament_controller.create_tournament(
-            tournament_info["name"],
-            tournament_info["location"],
-            start_date,
-            end_date,
-            tournament_info["rounds"],
-            tournament_info["description"]
-        )
-        console.print("[green]Tournoi créé avec succès.[/green]")
+        while True:
+            tournament_info = self.get_tournament_info()
+            if tournament_info:
+                try:
+                    start_date = datetime.strptime(tournament_info["start_date"], "%d/%m/%Y")
+                    end_date = datetime.strptime(tournament_info["end_date"], "%d/%m/%Y")
+                    self.tournament_controller.create_tournament(
+                        tournament_info["name"],
+                        tournament_info["location"],
+                        start_date,
+                        end_date,
+                        tournament_info["rounds"],
+                        tournament_info["description"]
+                    )
+                    console.print("[green]Tournoi créé avec succès.[/green]")
+                    break
+                except ValueError as e:
+                    console.print(f"[red]Erreur de saisie : {e}. Merci de vérifier vos entrées.[/red]")
+            else:
+                console.print("[red]Erreur dans la saisie des informations du tournoi. Veuillez réessayer.[/red]")
 
     def add_player_to_tournament(self, tournament=None):
         """
@@ -99,6 +107,9 @@ class TournamentView:
             console.print("[red]Tournoi introuvable.[/red]")
 
     def update_match_result(self, tournament=None):
+        """
+        Met à jour le résultat d'un match dans un tournoi.
+        """
         if tournament is None:
             self.view_tournaments()
             tournament_index = self.get_tournament_index()
@@ -144,20 +155,26 @@ class TournamentView:
         """
         Demande les informations du tournoi et les retourne sous forme de dictionnaire.
         """
-        name = input("Entrez le nom du tournoi: ")
-        location = input("Entrez le lieu du tournoi: ")
-        start_date = input("Entrez la date de début (DD/MM/YYYY): ")
-        end_date = input("Entrez la date de fin (DD/MM/YYYY): ")
-        rounds = int(input("Entrez le nombre de tours souhaités (par défaut: 4): "))
-        description = input("Entrez la description: ")
-        return {
-            "name": name,
-            "location": location,
-            "start_date": start_date,
-            "end_date": end_date,
-            "rounds": rounds,
-            "description": description
-        }
+        while True:
+            try:
+                name = input("Entrez le nom du tournoi: ")
+                location = input("Entrez le lieu du tournoi: ")
+                start_date = input("Entrez la date de début (DD/MM/YYYY): ")
+                end_date = input("Entrez la date de fin (DD/MM/YYYY): ")
+                rounds = int(input("Entrez le nombre de tours souhaités (par défaut: 4): "))
+                description = input("Entrez la description: ")
+                return {
+                    "name": name,
+                    "location": location,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                    "rounds": rounds,
+                    "description": description
+                }
+            except ValueError as e:
+                console.print(f"[red]Erreur de saisie : {e}. Merci de vérifier vos entrées.[/red]")
+            except Exception as e:
+                console.print(f"[red]Erreur : {e}.[/red]")
 
     @staticmethod
     def get_tournament_index():

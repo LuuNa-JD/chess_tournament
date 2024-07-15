@@ -9,16 +9,27 @@ console = Console()
 
 
 class ReportController:
+    """
+    Contrôleur pour générer des rapports basés sur les données des joueurs et des tournois.
+    """
+
     def __init__(self):
+        """
+        Initialise le contrôleur de rapport.
+        """
         self.player_controller = PlayerController()
         self.tournament_controller = TournamentController()
         self.env = Environment(loader=FileSystemLoader('templates'))
         self.reports_dir = 'reports'
 
+        # Crée le répertoire des rapports s'il n'existe pas
         if not os.path.exists(self.reports_dir):
             os.makedirs(self.reports_dir)
 
     def generate_player_report(self):
+        """
+        Génère un rapport des joueurs triés par nom et prénom.
+        """
         players = sorted(self.player_controller.players, key=lambda x: (x.last_name, x.first_name))
         template = self.env.get_template('player_report_template.html')
         report_content = template.render(players=players)
@@ -28,6 +39,9 @@ class ReportController:
         webbrowser.open_new_tab(report_path)
 
     def generate_tournament_list_report(self):
+        """
+        Génère un rapport de la liste des tournois.
+        """
         tournaments = self.tournament_controller.tournaments
         template = self.env.get_template('tournament_list_template.html')
         report_content = template.render(tournaments=tournaments)
@@ -37,6 +51,9 @@ class ReportController:
         webbrowser.open_new_tab(report_path)
 
     def generate_tournament_details_report(self, tournament_index):
+        """
+        Génère un rapport des détails d'un tournoi donné.
+        """
         tournaments = self.tournament_controller.tournaments
         if 0 <= tournament_index < len(tournaments):
             tournament = tournaments[tournament_index]
@@ -50,6 +67,9 @@ class ReportController:
             console.print("[red]Index du tournoi invalide[/red]")
 
     def generate_tournament_players_report(self, tournament_index):
+        """
+        Génère un rapport des joueurs d'un tournoi par ordre alphabétique.
+        """
         tournaments = self.tournament_controller.tournaments
         if 0 <= tournament_index < len(tournaments):
             tournament = tournaments[tournament_index]
@@ -64,6 +84,9 @@ class ReportController:
             console.print("[red]Index du tournoi invalide[/red]")
 
     def generate_tournament_rounds_report(self, tournament_index):
+        """
+        Génère un rapport des tours et des matchs d'un tournoi.
+        """
         tournaments = self.tournament_controller.tournaments
         if 0 <= tournament_index < len(tournaments):
             tournament = tournaments[tournament_index]

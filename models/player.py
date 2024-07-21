@@ -80,6 +80,7 @@ class Player:
         """
         Sauvegarde les joueurs dans un fichier JSON.
         """
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, 'w') as f:
             json.dump(
                 [player.add_to_dict() for player in players],

@@ -1,7 +1,5 @@
-import json
 from models.player import Player
 from datetime import datetime
-import os
 from rich.console import Console
 
 console = Console()
@@ -17,7 +15,7 @@ class PlayerController:
         Initialise le contrôleur des joueurs.
         """
         self.data_file = data_file
-        self.players = self.load_players()
+        self.players = Player.load_players(self.data_file)
 
     def add_player(self, last_name, first_name, birth_date, national_id,
                    ranking, gender):
@@ -51,23 +49,12 @@ class PlayerController:
 
     def load_players(self):
         """
-        Charge les joueurs depuis le fichier JSON.
+        Charge la liste des joueurs à partir du fichier JSON.
         """
-        if not os.path.exists(self.data_file):
-            return []
-        if os.path.getsize(self.data_file) == 0:
-            return []
-        with open(self.data_file, 'r') as f:
-            players_data = json.load(f)
-        return [Player.from_dict(player) for player in players_data]
+        self.players = Player.load_players(self.data_file)
 
     def save_players(self):
         """
         Sauvegarde la liste des joueurs dans le fichier JSON.
         """
-        os.makedirs(os.path.dirname(self.data_file), exist_ok=True)
-        with open(self.data_file, 'w') as f:
-            json.dump(
-                [player.add_to_dict() for player in self.players],
-                f,
-                indent=4)
+        Player.save_players(self.players, self.data_file)

@@ -51,7 +51,7 @@ class TournamentView:
 
         while True:
             player_view = PlayerView()
-            all_players = player_view.player_controller.get_all_players()
+            all_players = player_view.player_controller.players
             sorted_players = sorted(all_players, key=lambda x: (x.last_name, x.first_name))
             player_index = player_view.get_player_index(sorted_players)
             player = sorted_players[player_index]

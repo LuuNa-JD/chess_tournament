@@ -41,12 +41,6 @@ class PlayerController:
         except Exception as e:
             console.print(f"[red]Erreur : {e}.[/red]")
 
-    def get_all_players(self):
-        """
-        Retourne la liste de tous les joueurs triés par nom de famille et prénom.
-        """
-        return sorted(self.players, key=lambda p: (p.last_name, p.first_name))
-
     def load_players(self):
         """
         Charge la liste des joueurs à partir du fichier JSON.

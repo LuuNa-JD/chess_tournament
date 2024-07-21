@@ -37,7 +37,7 @@ class Player:
         La méthode retourne un dictionnaire contenant les détails du joueur.
         """
         return {
-            'last_name': self.last_name,
+            'last_name': self.last_name,  # Ajoute le nom de famille au dictionnaire
             'first_name': self.first_name,
             'birth_date': self.birth_date.strftime('%d/%m/%Y'),
             'national_id': self.national_id,
@@ -53,14 +53,14 @@ class Player:
         La méthode retourne une instance de Player initialisée avec les données fournies.
         """
         player = cls(
-            data['last_name'],
+            data['last_name'],  # Extrait le nom de famille du dictionnaire et l'utilise pour créer une instance
             data['first_name'],
             data['birth_date'],
             data['national_id'],
             data['ranking'],
             data['gender']
         )
-        return player
+        return player  # Retourne l'instance de Player créée
 
     @staticmethod
     def load_players(file_path='data/players.json'):
@@ -70,10 +70,11 @@ class Player:
         La méthode retourne une liste d'instances de joueurs.
         """
         if not os.path.exists(file_path):
-            return []
+            return []  # Retourne une liste vide si le fichier n'existe pas
         with open(file_path, 'r') as f:
-            players_data = json.load(f)
+            players_data = json.load(f)  # Charge les données JSON du fichier
         return [Player.from_dict(player) for player in players_data]
+        # Convertit chaque dictionnaire de joueur en instance de joueur
 
     @staticmethod
     def save_players(players, file_path='data/players.json'):
@@ -83,7 +84,7 @@ class Player:
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, 'w') as f:
             json.dump(
-                [player.add_to_dict() for player in players],
+                [player.add_to_dict() for player in players],  # Convertit chaque instance de Player en dictionnaire
                 f,
-                indent=4
+                indent=4  # indentation de 4 espaces pour une meilleure lisibilité
             )

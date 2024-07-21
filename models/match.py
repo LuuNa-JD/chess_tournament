@@ -20,7 +20,7 @@ class Match:
         self.player2 = player2
         self.score1 = score1
         self.score2 = score2
-        self.player1_color, self.player2_color = self.assign_colors()
+        self.player1_color, self.player2_color = self.assign_colors()  # Assigne les couleurs aux joueurs
 
     def set_result(self, winner=None):
         """
@@ -41,11 +41,11 @@ class Match:
         Convertit les détails du match en dictionnaire.
         """
         return {
-            'player1': self.player1.add_to_dict(),
-            'score1': self.score1,
+            'player1': self.player1.add_to_dict(),  # Convertit le premier joueur en dictionnaire
+            'score1': self.score1,  # Ajoute le score du premier joueur
             'player2': self.player2.add_to_dict(),
             'score2': self.score2,
-            'player1_color': self.player1_color,
+            'player1_color': self.player1_color,  # Ajoute la couleur du premier joueur
             'player2_color': self.player2_color
         }
 
@@ -53,9 +53,9 @@ class Match:
         """
         Assigne aléatoirement les couleurs aux joueurs.
         """
-        colors = ["Blanc", "Noir"]
-        random.shuffle(colors)
-        return colors[0], colors[1]
+        colors = ["Blanc", "Noir"]  # Liste des couleurs disponibles
+        random.shuffle(colors)  # Mélange aléatoirement les couleurs
+        return colors[0], colors[1]  # Retourne les couleurs assignées aux deux joueurs
 
     @classmethod
     def from_dict(cls, data, players):
@@ -65,12 +65,12 @@ class Match:
         player1 = next(
             (player for player in players if
              player.national_id == data['player1']['national_id'])
-        )
+        )  # Trouve le premier joueur dans la liste des joueurs en utilisant son identifiant national
         player2 = next(player for player in players if
                        player.national_id == data['player2']['national_id'])
-        score1 = data['score1']
+        score1 = data['score1']   # Extrait le score du premier joueur à partir des données
         score2 = data['score2']
-        match = cls(player1, player2, score1, score2)
-        match.player1_color = data['player1_color']
+        match = cls(player1, player2, score1, score2)   # Crée une nouvelle instance de Match avec les données extr.
+        match.player1_color = data['player1_color']  # Attribue la couleur du premier joueur
         match.player2_color = data['player2_color']
         return match

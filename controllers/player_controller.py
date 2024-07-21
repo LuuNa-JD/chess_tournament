@@ -15,7 +15,7 @@ class PlayerController:
         Initialise le contrôleur des joueurs.
         """
         self.data_file = data_file
-        self.players = Player.load_players(self.data_file)
+        self.players = Player.load_players(self.data_file)  # Charge les joueurs depuis le fichier JSON
 
     def add_player(self, last_name, first_name, birth_date, national_id,
                    ranking, gender):
@@ -32,9 +32,9 @@ class PlayerController:
                 national_id,
                 ranking,
                 gender
-            )
-            self.players.append(player)
-            self.save_players()
+            )  # Crée une nouvelle instance de Player avec les données fournies.
+            self.players.append(player)  # Ajoute le nouveau joueur à la liste des joueurs.
+            self.save_players()  # Sauvegarde la liste mise à jour des joueurs dans le fichier JSON.
             console.print("[green]Joueur ajouté avec succès.[/green]")
         except ValueError as e:
             console.print(f"[red]Erreur de saisie : {e}. Merci de vérifier vos entrées.[/red]")
@@ -45,10 +45,10 @@ class PlayerController:
         """
         Charge la liste des joueurs à partir du fichier JSON.
         """
-        self.players = Player.load_players(self.data_file)
+        self.players = Player.load_players(self.data_file)  # Charge les joueurs depuis le fichier JSON
 
     def save_players(self):
         """
         Sauvegarde la liste des joueurs dans le fichier JSON.
         """
-        Player.save_players(self.players, self.data_file)
+        Player.save_players(self.players, self.data_file)  # Sauvegarde la liste des joueurs dans le fichier JSON

@@ -20,11 +20,12 @@ class TournamentView:
         Crée un tournoi.
         """
         while True:
-            tournament_info = self.get_tournament_info()
+            tournament_info = self.get_tournament_info()  # Obtient les informations du tournoi.
             if tournament_info:
                 try:
                     start_date = datetime.strptime(tournament_info["start_date"], "%d/%m/%Y")
                     end_date = datetime.strptime(tournament_info["end_date"], "%d/%m/%Y")
+                    # Appel du contrôleur pour créer un nouveau tournoi.
                     self.tournament_controller.create_tournament(
                         tournament_info["name"],
                         tournament_info["location"],
@@ -45,18 +46,19 @@ class TournamentView:
         Ajoute un joueur à un tournoi.
         """
         if tournament is None:
-            self.view_tournaments()
-            tournament_index = self.get_tournament_index()
+            self.view_tournaments()  # Affiche la liste des tournois.
+            tournament_index = self.get_tournament_index()  # Obtient l'index du tournoi sélectionné par l'utilisateur.
             tournament = self.tournament_controller.tournaments[tournament_index]
 
         while True:
             player_view = PlayerView()
-            all_players = player_view.player_controller.players
-            sorted_players = sorted(all_players, key=lambda x: (x.last_name, x.first_name))
-            player_index = player_view.get_player_index(sorted_players)
-            player = sorted_players[player_index]
+            all_players = player_view.player_controller.players  # Obtient la liste des joueurs
+            sorted_players = sorted(all_players, key=lambda x: (x.last_name, x.first_name))  # Trie les joueurs
+            player_index = player_view.get_player_index(sorted_players)   # Obtient l'index du joueur sélectionné
+            player = sorted_players[player_index]  # Sélectionne le joueur.
 
             if tournament:
+                # Ajoute le joueur au tournoi en appelant le contrôleur.
                 self.tournament_controller.add_player_to_tournament(tournament, player)
                 console.print("[green]Joueur ajouté au tournoi avec succès.[/green]")
             else:
@@ -71,14 +73,14 @@ class TournamentView:
         Démarre un tour de tournoi.
         """
         if tournament is None:
-            self.view_tournaments()
+            self.view_tournaments()  # Affiche la liste des tournois.
             tournament_index = self.get_tournament_index()
             tournament = self.tournament_controller.tournaments[tournament_index]
 
         if tournament:
             self.tournament_controller.start_round(tournament)
             console.print("[green]Tour démarré avec succès.[/green]")
-            self.view_matches(tournament.round_list[-1])
+            self.view_matches(tournament.round_list[-1])  # Affiche les matchs du tour actuel.
         else:
             console.print("[red]Tournoi introuvable.[/red]")
 
@@ -116,10 +118,10 @@ class TournamentView:
             tournament = self.tournament_controller.tournaments[tournament_index]
 
         if tournament:
-            self.view_rounds(tournament)
-            round_index = self.get_round_index()
-            self.view_matches(tournament.round_list[round_index])
-            match_index = self.get_match_index()
+            self.view_rounds(tournament)  # Affiche les rounds du tournoi.
+            round_index = self.get_round_index()  # Obtient l'index du round sélectionné par l'utilisateur.
+            self.view_matches(tournament.round_list[round_index])  # Affiche les matchs du round sélectionné.
+            match_index = self.get_match_index()  # Obtient l'index du match sélectionné par l'utilisateur.
 
             match = tournament.round_list[round_index].matches[match_index]
             console.print(f"1. {match.player1.first_name} {match.player1.last_name}")

@@ -29,16 +29,16 @@ class Tournament:
         self.end_date = end_date.strftime('%d/%m/%Y') if isinstance(end_date, datetime) else end_date
         self.rounds = rounds
         self.current_round = 0
-        self.players = []
-        self.round_list = []
+        self.players = []  # Initialise une liste vide pour les joueurs
+        self.round_list = []  # Initialise une liste vide pour les tours
         self.description = description
-        self.player_points = {}
+        self.player_points = {}  # Initialise un dictionnaire vide pour les points des joueurs
 
     def add_player(self, player):
         """
         Ajoute un joueur au tournoi.
         """
-        self.players.append(player)
+        self.players.append(player)  # Ajoute le joueur à la liste des joueurs
         self.player_points[player.national_id] = 0
 
     def get_player_points(self, player):
@@ -82,7 +82,7 @@ class Tournament:
         round_name = f"Round {self.current_round + 1}"
         new_round = Round(round_name)
         self.generate_pairs(new_round)
-        self.round_list.append(new_round)
+        self.round_list.append(new_round)  # Ajoute le nouveau tour à la liste des tours
         self.current_round += 1
 
     def end_current_round(self):
@@ -90,18 +90,18 @@ class Tournament:
         Termine le tour en cours en enregistrant l'heure actuelle comme heure de fin.
         """
         if self.current_round > 0:
-            current_round = self.round_list[-1]
-            current_round.end_round()
+            current_round = self.round_list[-1]  # Récupère le tour actuel
+            current_round.end_round()  # Termine le tour en cours
 
     def update_match_result(self, round_index, match_index, winner, score1, score2):
         """
         Met à jour le résultat d'un match dans un tour donné.
         """
-        match = self.round_list[round_index].matches[match_index]
-        match.set_result(winner)
-        match.score1 = score1
+        match = self.round_list[round_index].matches[match_index]  # Récupère le match spécifique dans le tour.
+        match.set_result(winner)  # Définit le résultat du match.
+        match.score1 = score1  # Met à jour le score du premier joueur.
         match.score2 = score2
-        self.player_points[match.player1.national_id] += score1
+        self.player_points[match.player1.national_id] += score1   # Met à jour les points du premier joueur.
         self.player_points[match.player2.national_id] += score2
 
     @staticmethod
@@ -119,7 +119,7 @@ class Tournament:
         La méthode retourne une liste d'instances de tournois.
         """
         with open(file_path, 'r') as f:
-            tournaments_data = json.load(f)
+            tournaments_data = json.load(f)  # Charge les données du fichier JSON.
             return [Tournament.from_dict(data) for data in tournaments_data]
 
     def add_to_dict(self):
@@ -128,7 +128,7 @@ class Tournament:
         La méthode retourne un dictionnaire contenant les détails du tournoi.
         """
         return {
-            'name': self.name,
+            'name': self.name,  # Ajoute le nom du tournoi au dictionnaire.
             'location': self.location,
             'start_date': self.start_date,
             'end_date': self.end_date,
@@ -149,9 +149,9 @@ class Tournament:
         start_date = data['start_date']
         end_date = data['end_date']
         tournament = cls(
-            data['name'],
+            data['name'],   # Extrait le nom du tournoi du dictionnaire.
             data['location'],
-            start_date,
+            start_date,  # Passée en tant que chaîne de caractères
             end_date,
             data['rounds'],
             data['description']
@@ -161,6 +161,6 @@ class Tournament:
         tournament.round_list = [
             Round.from_dict(round_instance, tournament.players)
             for round_instance in data['round_list']
-        ]
-        tournament.player_points = data.get('player_points', {})
+        ]  # Crée une liste de tours à partir des données du dictionnaire.
+        tournament.player_points = data.get('player_points', {})  # Définit les points des joueurs à partir du dict
         return tournament

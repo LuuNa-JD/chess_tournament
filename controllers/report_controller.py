@@ -19,6 +19,7 @@ class ReportController:
         """
         self.player_controller = PlayerController()
         self.tournament_controller = TournamentController()
+        # Configuration de l'environnement Jinja2 pour le chargement des templates.
         self.env = Environment(loader=FileSystemLoader('templates'))
         self.reports_dir = 'reports'
 
@@ -30,13 +31,13 @@ class ReportController:
         """
         Génère un rapport des joueurs triés par nom et prénom.
         """
-        players = sorted(self.player_controller.players, key=lambda x: (x.last_name, x.first_name))
-        template = self.env.get_template('player_report_template.html')
+        players = sorted(self.player_controller.players, key=lambda x: (x.last_name, x.first_name))  # Tri des joueurs
+        template = self.env.get_template('player_report_template.html')  # Chargement du template pour le rapport
         report_content = template.render(players=players)
         report_path = os.path.join(self.reports_dir, 'player_report.html')
         with open(report_path, 'w') as report_file:
             report_file.write(report_content)
-        webbrowser.open_new_tab(report_path)
+        webbrowser.open_new_tab(report_path)  # Ouverture du rapport généré dans un nouvel onglet du navigateur.
 
     def generate_tournament_list_report(self):
         """

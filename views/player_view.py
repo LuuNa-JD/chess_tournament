@@ -18,7 +18,7 @@ class PlayerView:
         Ajoute un joueur.
         """
         while True:
-            player_info = self.get_player_info()
+            player_info = self.get_player_info()  # Demande les informations du joueur.
             if player_info:
                 self.player_controller.add_player(
                     player_info["last_name"],
@@ -28,17 +28,18 @@ class PlayerView:
                     player_info["ranking"],
                     player_info["gender"]
                 )
-                break
+                break  # Sort de la boucle si l'ajout est réussi.
             else:
+                # Affiche un message d'erreur si les informations sont incorrectes.
                 console.print("[red]Veuillez réessayer de saisir les informations du joueur.[/red]")
 
     def view_players(self):
         """
         Affiche les joueurs par ordre alphabétique.
         """
-        self.player_controller.load_players()
-        players_sorted = sorted(self.player_controller.players, key=lambda x: x.last_name)
-        self.display_players(players_sorted)
+        self.player_controller.load_players()  # Charge la liste des joueurs depuis le fichier JSON.
+        players_sorted = sorted(self.player_controller.players, key=lambda x: x.last_name)  # Trie les joueurs
+        self.display_players(players_sorted)  # Affiche les joueurs triés.
 
     @staticmethod
     def get_player_info():
@@ -62,9 +63,11 @@ class PlayerView:
 
             }
         except ValueError as e:
+            # Gestion des erreurs de saisie.
             console.print(f"[red]Erreur de saisie : {e}. Merci de vérifier vos entrées.[/red]")
             return None
         except Exception as e:
+            # Gestion des autres erreurs.
             console.print(f"[red]Erreur : {e}.[/red]")
             return None
 
@@ -72,14 +75,14 @@ class PlayerView:
         """
         Demande l'index du joueur à l'utilisateur.
         """
-        self.display_players(players)
-        return int(input("Entrer l'index du joueur: "))
+        self.display_players(players)  # Affiche la liste des joueurs.
+        return int(input("Entrer l'index du joueur: "))   # Demande à l'utilisateur de saisir l'index du joueur.
 
     def display_players(self, players):
         """
         Affiche les joueurs dans un tableau formaté avec Rich.
         """
-        table = Table(title="Liste des joueurs")
+        table = Table(title="Liste des joueurs")  # Création d'un tableau avec un titre.
         table.add_column("Index", justify="right", style="cyan", no_wrap=True)
         table.add_column("Nom", style="magenta")
         table.add_column("Prénom", style="magenta")
@@ -88,6 +91,7 @@ class PlayerView:
         table.add_column("Classement", style="yellow")
         table.add_column("Sexe", style="blue")
 
+        # Ajout des lignes au tableau.
         for index, player in enumerate(players):
             table.add_row(
                 str(index),
@@ -99,4 +103,4 @@ class PlayerView:
                 player.gender,
             )
 
-        console.print(table)
+        console.print(table)  # Affiche le tableau formaté dans la console.

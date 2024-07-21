@@ -19,25 +19,25 @@ class Round:
         self.name = name
         self.start_time = start_time if isinstance(start_time, datetime) else datetime.now()
         self.end_time = end_time if isinstance(end_time, datetime) else None
-        self.matches = []
+        self.matches = []  # Initialise une liste vide pour les matchs du tour
 
     def add_match(self, match):
         """
         Ajoute un match au tour.
         """
-        self.matches.append(match)
+        self.matches.append(match)  # Ajoute le match à la liste des matchs
 
     def end_round(self):
         """
         Termine le tour en enregistrant l'heure actuelle comme heure de fin.
         """
-        self.end_time = datetime.now()
+        self.end_time = datetime.now()   # Enregistre l'heure actuelle comme temps de fin du tour
 
     def update_match_result(self, match_index, winner):
         """
         Met à jour le résultat d'un match.
         """
-        self.matches[match_index].set_result(winner)
+        self.matches[match_index].set_result(winner)  # Met à jour le résultat du match spécifié par son index
 
     def add_to_dict(self):
         """
@@ -49,7 +49,7 @@ class Round:
             'name': self.name,
             'start_time': self.start_time.isoformat() if self.start_time else None,
             'end_time': self.end_time.isoformat() if self.end_time else None,
-            'matches': [match.add_to_dict() for match in self.matches]
+            'matches': [match.add_to_dict() for match in self.matches]  # Ajoute la liste des matchs convertis en dict
         }
 
     @classmethod
@@ -65,7 +65,7 @@ class Round:
             datetime.fromisoformat(data['end_time']) if data['end_time'] else None
         )
         round_instance.matches = [Match.from_dict(match, players) for match in data['matches']]
-        return round_instance
+        return round_instance  # Retourne l'instance de Round créée
 
     def formatted_start_time(self):
         """

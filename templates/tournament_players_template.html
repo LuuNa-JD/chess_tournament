@@ -61,7 +61,7 @@
             <tr>
                 <td>{{ player.last_name }}</td>
                 <td>{{ player.first_name }}</td>
-                <td>{{ player.birth_date }}</td>
+                <td>{{ player.birth_date.strftime('%d/%m/%Y') }}</td>
                 <td>{{ player.national_id }}</td>
                 <td>{{ player.ranking }}</td>
                 <td>{{ player.gender }}</td>

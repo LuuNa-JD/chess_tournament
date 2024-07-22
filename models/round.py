@@ -66,15 +66,3 @@ class Round:
         )
         round_instance.matches = [Match.from_dict(match, players) for match in data['matches']]
         return round_instance  # Retourne l'instance de Round créée
-
-    def formatted_start_time(self):
-        """
-        Retourne le temps de début formaté.
-        """
-        return self.start_time.strftime("%d/%m/%Y %H:%M") if self.start_time else None
-
-    def formatted_end_time(self):
-        """
-        Retourne le temps de fin formaté.
-        """
-        return self.end_time.strftime("%d/%m/%Y %H:%M") if self.end_time else None

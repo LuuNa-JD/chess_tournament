@@ -1,6 +1,6 @@
 # Gestionnaire de Tournoi d'Échecs
 
-Le Gestionnaire de Tournoi d'Échecs est une application Python conçue pour aider à gérer les tournois d'échecs, y compris l'inscription des joueurs, la planification des tournois et le suivi des tours et des matchs de chaque tournoi.
+Le gestionnaire de tournoi d'échecs est une application Python conçue pour aider à gérer les tournois d'échecs, y compris l'inscription des joueurs, la planification des tournois et le suivi des tours et des matchs de chaque tournoi.
 
 ## Table des Matières
 
